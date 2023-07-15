@@ -1,4 +1,4 @@
-checkout live:https://vercel.com/rada-ii/quote-app-next-js-tailwindcss-typescript
+checkout live:[https://vercel.com/rada-ii/quote-app-next-js-tailwindcss-typescript](https://quote-app-next-js-tailwindcss-typescript.vercel.app/)
 
 
 This is a simple quote app that fetches quotes from an API endpoint and allows you to save or delete quotes. It's a personal practice project.
