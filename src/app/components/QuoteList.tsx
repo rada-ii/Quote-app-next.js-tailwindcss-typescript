@@ -92,23 +92,26 @@ const QuoteList = () => {
         ...quote,
         saved: false,
       }));
+
       setQuotes(updatedQuotes);
     } catch (error) {
       console.error("Error:", error);
     }
   };
-
   const handleSaveQuote = (quote: Quote) => {
-    if (!quote.saved) {
-      const updatedQuotes = quotes.map((q) => {
-        if (q.id === quote.id) {
+    const updatedQuotes = quotes.map((q) => {
+      if (q.id === quote.id) {
+        if (!q.saved) {
           return { ...q, saved: true };
+        } else {
+          return q;
         }
-        return q;
-      });
-      setQuotes(updatedQuotes);
-      setSavedQuotes((prevSavedQuotes) => [...prevSavedQuotes, quote]);
-    }
+      }
+      return q;
+    });
+    setQuotes([]);
+    setSavedQuotes((prevSavedQuotes) => [...prevSavedQuotes, quote]);
+    setCategory("");
   };
 
   const handleDeleteQuote = (quote: Quote) => {
@@ -119,14 +122,9 @@ const QuoteList = () => {
 
     setSavedQuotes(updatedSavedQuotes);
 
-    const updatedQuotes = quotes.map((q) => {
-      if (q.id === quote.id) {
-        return { ...q, saved: false };
-      }
-      return q;
-    });
-
+    const updatedQuotes = quotes.filter((q) => q.id !== quote.id);
     setQuotes(updatedQuotes);
+    setCategory("");
   };
 
   const handleCategoryChange = (
@@ -136,15 +134,15 @@ const QuoteList = () => {
   };
 
   return (
-    <div className="w-11/12 h-screen bg-rose-100 mx-auto">
-      <h1 className="text-4xl font-bold my-4 text-center text-cyan-500">
-        Quote List
+    <div className="w-11/12 h-screen bg-sky-50  mx-auto  rounded-xl text-zinc-600">
+      <h1 className="text-4xl font-bold my-8 text-center text-cyan-500">
+        Quote App
       </h1>
-      <div className="flex mb-4 justify-center">
+      <div className="flex mb-4 justify-center ">
         <select
           value={category}
           onChange={handleCategoryChange}
-          className="mr-2 px-2 py-1 border border-gray-300 rounded"
+          className="mr-2 px-2 py-1 border border-gray-300 rounded-xl "
         >
           <option value="">-- Select Category --</option>
           {categories.map((cat) => (
@@ -154,24 +152,36 @@ const QuoteList = () => {
           ))}
         </select>
         <button
-          className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+          className="bg-sky-500  hover:bg-sky-700 text-white font-bold py-2 px-4 rounded-xl"
           onClick={handleLoadQuotes}
         >
           Load Quotes
         </button>
       </div>
+      <p className="text-center">
+        (or just click on Load Quotes button to get random quote)
+      </p>
       {quotes.length > 0 ? (
-        <ul className="space-y-4">
+        <ul className="space-y-8">
           {quotes.map((quote) => (
-            <li key={quote.id} className="flex items-center justify-center">
+            <li key={quote.author} className="flex items-center justify-center">
               <div className="w-2/3">
-                <p>Category: {quote.category}</p>
-                <p>Quote: {quote.quote}</p>
-                <p>Author: {quote.author}</p>
+                <p>
+                  <span className="text-teal-400">Category: </span>
+                  <span className="text-teal-600">{quote.category}</span>
+                </p>
+                <p className="mr-4">
+                  <span className="text-indigo-500">Quote: </span>
+                  {quote.quote}
+                </p>
+                <p>
+                  <span className="text-indigo-400">Author: </span>
+                  <span className="text-indigo-600">{quote.author}</span>
+                </p>
               </div>
               {!quote.saved && (
                 <button
-                  className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
+                  className="bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded-xl"
                   onClick={() => handleSaveQuote(quote)}
                 >
                   Save
@@ -184,18 +194,29 @@ const QuoteList = () => {
         <p className="text-center">No quotes available.</p>
       )}
       {savedQuotes.length > 0 && (
-        <div className="mx-auto w-4/5">
-          <h2 className="text-2xl font-bold mt-8">Saved Quotes</h2>
+        <div className="mx-auto w-4/5 border border-neutral-700 rounded-xl p-4 mt-8 bg-cyan-100">
+          <h2 className="text-2xl font-bold mt-8 mb-4 text-center text-emerald-500">
+            Saved Quotes
+          </h2>
           <ul className="space-y-4">
             {savedQuotes.map((quote) => (
-              <li key={quote.id} className="flex items-center">
+              <li key={quote.author} className="flex items-center li">
                 <div className="flex-grow">
-                  <p>Category: {quote.category}</p>
-                  <p>Quote: {quote.quote}</p>
-                  <p>Author: {quote.author}</p>
+                  <p>
+                    <span className="text-orange-300 ">Category: </span>
+                    <span className="text-orange-500 ">{quote.category}</span>
+                  </p>
+                  <p className="mr-4">
+                    <span className="text-orange-500 ">Quote: </span>
+                    {quote.quote}
+                  </p>
+                  <p>
+                    <span className="text-orange-300 ">Author: </span>
+                    <span className="text-orange-500 ">{quote.author}</span>
+                  </p>
                 </div>
                 <button
-                  className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
+                  className="bg-red-500 hover:bg-red-800 text-white font-bold py-2 px-4 rounded-xl"
                   onClick={() => handleDeleteQuote(quote)}
                 >
                   Delete
