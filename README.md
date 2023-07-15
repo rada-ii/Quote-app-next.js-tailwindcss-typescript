@@ -4,10 +4,10 @@ checkout live: [https://vercel.com/rada-ii/quote-app-next-js-tailwindcss-typescr
 This is a simple quote app that fetches quotes from an API endpoint and allows you to save or delete quotes. It's a personal practice project.
 
 To get started, run the following commands:
-## first:
-npm i
-## than:
-npm run dev
+first:
+## npm i
+after that:
+## npm run dev
 
 
 
