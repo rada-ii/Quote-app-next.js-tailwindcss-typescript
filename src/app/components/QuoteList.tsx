@@ -142,7 +142,7 @@ const QuoteList = () => {
         <select
           value={category}
           onChange={handleCategoryChange}
-          className="mr-2 px-2 py-1 border border-gray-100 rounded-xl "
+          className="mr-2 px-2 py-1 border border-slate-200  rounded-xl "
         >
           <option value="">-- Select Category --</option>
           {categories.map((cat) => (
