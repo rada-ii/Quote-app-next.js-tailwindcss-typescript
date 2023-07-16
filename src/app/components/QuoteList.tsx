@@ -142,7 +142,7 @@ const QuoteList = () => {
         <select
           value={category}
           onChange={handleCategoryChange}
-          className="mr-2 px-2 py-1 border border-gray-300 rounded-xl "
+          className="mr-2 px-2 py-1 border border-gray-100 rounded-xl "
         >
           <option value="">-- Select Category --</option>
           {categories.map((cat) => (
@@ -194,7 +194,7 @@ const QuoteList = () => {
         <p className="text-center">No quotes available.</p>
       )}
       {savedQuotes.length > 0 && (
-        <div className="mx-auto w-4/5 border border-neutral-700 rounded-xl p-4 mt-8 bg-cyan-100">
+        <div className="mx-auto w-4/5 border border-neutral-300 rounded-xl p-4 mt-8 bg-cyan-100">
           <h2 className="text-2xl font-bold mt-8 mb-4 text-center text-emerald-500">
             Saved Quotes
           </h2>
